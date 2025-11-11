@@ -14,7 +14,7 @@ export const getWalletSDKConfig = () => {
     metadata: {
       name: "Builder Score App",
       description: "Onchain builder score and searcher",
-      url: typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL || "https://builder-checker-app.vercel.app",
+      url: "https://builder-checker-app.vercel.app",
       icons: [],
     },
   };
