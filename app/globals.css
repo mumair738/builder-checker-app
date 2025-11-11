@@ -25,10 +25,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.dark body {
-  background: radial-gradient(circle at top left, #111827, #0b1020);
-}
-
 .glass {
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(12px);
