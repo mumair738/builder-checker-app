@@ -17,7 +17,7 @@ createAppKit({
   metadata: {
     name: "Builder Checker App",
     description: "Onchain Builder Score & Verification",
-    url: typeof window !== "undefined" ? window.location.origin : "http://localhost:3000",
+    url: typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL || "https://builder-checker-app.vercel.app",
     icons: ['https://avatars.githubusercontent.com/u/37784886?s=200&v=4'],
   },
   features: {
