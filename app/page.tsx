@@ -3,7 +3,7 @@ import { BuilderScore } from "@/components/BuilderScore";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function Home() {
+export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent/20 to-transparent">
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
