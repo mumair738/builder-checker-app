@@ -24,7 +24,6 @@ createAppKit({
     swaps: false,
     analytics: false,
   },
-  themeMode: "system",
 });
 
 const queryClient = new QueryClient();

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Builder Score App
 
 An onchain builder score and searcher application built with Next.js, ReownKit (AppKit), WalletConnect Wallet SDK, and Talent Protocol API.
@@ -145,3 +146,6 @@ npm run lint
 ## License
 
 MIT
+=======
+# builder-checker-app
+>>>>>>> 0ae7052b5f2ea0940972875c31cee8e291e353e5
