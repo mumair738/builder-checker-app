@@ -1,5 +1,5 @@
 {
-  "name": "builder-score-app",
+  "name": "builder-checker-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
