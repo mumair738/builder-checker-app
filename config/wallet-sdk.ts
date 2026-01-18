@@ -1,5 +1,5 @@
 // Wallet SDK configuration
-// Note: Wallet SDK is available through AppKit integration
+// Note: Wallet SDK available through AppKit integration
 // This file can be used for additional Wallet SDK functionality if needed
 
 export const getWalletSDKConfig = () => {
