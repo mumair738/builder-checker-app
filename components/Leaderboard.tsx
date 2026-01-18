@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "reac";
 import { getLeaderboard } from "@/lib/builderscore-api";
 import { getTokenPrice, type TokenInfo } from "@/lib/coingecko-api";
 import type { LeaderboardResponse, LeaderboardFilters } from "@/types/talent";
