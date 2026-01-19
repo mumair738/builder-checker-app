@@ -6,6 +6,9 @@ import { getTokenPrice } from "@/lib/coingecko-api";
 import type { LeaderboardUser } from "@/types/talent";
 import { formatNumber } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { OnChainActivity } from "./OnChainActivity";
+import { GitHubActivity } from "./GitHubActivity";
+import { SocialIdentity } from "./SocialIdentity";
 
 interface BuilderProfileModalProps {
   builder: LeaderboardUser;
@@ -24,6 +27,7 @@ interface SponsorData {
 export function BuilderProfileModal({ builder, isOpen, onClose }: BuilderProfileModalProps) {
   const [sponsorData, setSponsorData] = useState<SponsorData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"sponsors" | "onchain" | "github" | "social">("sponsors");
 
   useEffect(() => {
     if (isOpen && builder) {
@@ -100,7 +104,7 @@ export function BuilderProfileModal({ builder, isOpen, onClose }: BuilderProfile
               <h2 className="text-xl font-semibold text-gray-900">
                 {builder.profile.display_name || builder.profile.name || "Anonymous"}
               </h2>
-              <p className="text-sm text-gray-500 mt-1">Multi-Sponsor Profile</p>
+              <p className="text-sm text-gray-500 mt-1">Builder Profile</p>
             </div>
             <button
               onClick={onClose}
@@ -112,53 +116,113 @@ export function BuilderProfileModal({ builder, isOpen, onClose }: BuilderProfile
             </button>
           </div>
 
+          {/* Tab Navigation */}
+          <div className="sticky top-16 bg-white border-b border-gray-200 px-6 flex gap-2 overflow-x-auto">
+            <button
+              onClick={() => setActiveTab("sponsors")}
+              className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === "sponsors"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Sponsors
+            </button>
+            <button
+              onClick={() => setActiveTab("onchain")}
+              className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === "onchain"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Base Chain
+            </button>
+            <button
+              onClick={() => setActiveTab("github")}
+              className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === "github"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              GitHub
+            </button>
+            <button
+              onClick={() => setActiveTab("social")}
+              className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === "social"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              Social
+            </button>
+          </div>
+
           <div className="p-6">
-            {loading ? (
-              <div className="text-center py-8">
-                <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
-                <p className="text-sm text-gray-500 mt-4">Loading sponsor data...</p>
-              </div>
-            ) : sponsorData.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-500">No data found across sponsors</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {sponsorData.map((data) => (
-                    <div
-                      key={data.sponsor}
-                      className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="font-semibold text-gray-900">
-                          {getSponsorLabel(data.sponsor)}
-                        </h3>
-                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
-                          #{data.position}
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        <div>
-                          <p className="text-xs text-gray-500">Earnings</p>
-                          <p className="text-lg font-semibold text-gray-900">
-                            ${formatNumber(data.earningsUSD)}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {formatNumber(data.earnings)} {data.tokenSymbol}
-                          </p>
+            {activeTab === "sponsors" && (
+              <>
+                {loading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin w-8 h-8 border-4 border-accent border-t-transparent rounded-full mx-auto"></div>
+                    <p className="text-sm text-gray-500 mt-4">Loading sponsor data...</p>
+                  </div>
+                ) : sponsorData.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">No data found across sponsors</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {sponsorData.map((data) => (
+                        <div
+                          key={data.sponsor}
+                          className="border border-gray-200 rounded-lg p-4 hover:border-accent/50 transition-colors"
+                        >
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-semibold text-gray-900">
+                              {getSponsorLabel(data.sponsor)}
+                            </h3>
+                            <span className="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
+                              #{data.position}
+                            </span>
+                          </div>
+                          <div className="space-y-2">
+                            <div>
+                              <p className="text-xs text-gray-500">Earnings</p>
+                              <p className="text-lg font-semibold text-gray-900">
+                                ${formatNumber(data.earningsUSD)}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {formatNumber(data.earnings)} {data.tokenSymbol}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-gray-500">Leaderboard Position</p>
+                              <p className="text-sm font-medium text-gray-700">
+                                #{data.position}
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-gray-500">Leaderboard Position</p>
-                          <p className="text-sm font-medium text-gray-700">
-                            #{data.position}
-                          </p>
-                        </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === "onchain" && (
+              <OnChainActivity address={builder.profile.id} />
+            )}
+
+            {activeTab === "github" && (
+              <GitHubActivity username={builder.profile.github || undefined} />
+            )}
+
+            {activeTab === "social" && (
+              <SocialIdentity address={builder.profile.id} />
             )}
           </div>
         </motion.div>
